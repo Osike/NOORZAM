@@ -1,4 +1,3 @@
-import React from 'react';
 import { ChevronRight, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Button from '../ui/Button';
@@ -25,7 +24,7 @@ function HeroSection() {
             transition={{ duration: 0.7 }}
           >
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-white">
-              Your Trusted Logistics Partner in Mombasa
+              Your Reliable Partner
             </h1>
           </motion.div>
 
@@ -35,7 +34,7 @@ function HeroSection() {
             transition={{ duration: 0.7, delay: 0.2 }}
           >
             <p className="text-xl mb-8 text-neutral-100">
-              NOORZAM Logistics provides reliable transportation and freight solutions across Kenya. 
+              NOORZAM Hauliers provides reliable transportation and freight solutions across Kenya. 
               With our experienced team and modern fleet, we ensure your cargo reaches its destination safely and on time.
             </p>
           </motion.div>
