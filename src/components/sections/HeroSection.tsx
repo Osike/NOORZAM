@@ -52,6 +52,7 @@ function HeroSection() {
             >
               Get a Quote
             </Button>
+            <a href="#about">
             <Button 
               variant="outline" 
               size="lg"
@@ -60,6 +61,7 @@ function HeroSection() {
             >
               Learn More
             </Button>
+            </a>
           </motion.div>
         </div>
       </div>
