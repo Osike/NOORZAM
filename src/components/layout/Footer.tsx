@@ -15,7 +15,7 @@ function Footer() {
               <span className="text-xl font-bold">NOORZAM</span>
             </div>
             <p className="text-neutral-300 mb-4">
-              Your trusted logistics partner in Mombasa, Kenya. Providing reliable transport solutions since 2010.
+              Your trusted reliable partner in Kenya. Providing reliable hauliers solutions.
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-neutral-300 hover:text-accent-500 transition-colors">
