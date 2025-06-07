@@ -64,15 +64,15 @@ function Footer() {
             <ul className="space-y-4">
               <li className="flex items-start">
                 <MapPin size={20} className="text-accent-500 mr-3 mt-1 flex-shrink-0" />
-                <span className="text-neutral-300">123 Business Road, Mombasa, Kenya</span>
+                <span className="text-neutral-300">Mombasa, Kenya</span>
               </li>
               <li className="flex items-center">
                 <Phone size={20} className="text-accent-500 mr-3 flex-shrink-0" />
-                <a href="tel:+254123456789" className="text-neutral-300 hover:text-accent-500 transition-colors">+254 123 456 789</a>
+                <a href="tel:+254721629601" className="text-neutral-300 hover:text-accent-500 transition-colors">(+254) 07-2162-9601 / 07-2144-5597</a>
               </li>
               <li className="flex items-center">
                 <Mail size={20} className="text-accent-500 mr-3 flex-shrink-0" />
-                <a href="mailto:info@noorzam.com" className="text-neutral-300 hover:text-accent-500 transition-colors">info@noorzam.com</a>
+                <a href="mailto:noorzamhouliers@gmail.com" className="text-neutral-300 hover:text-accent-500 transition-colors">noorzamhouliers@gmail.com</a>
               </li>
             </ul>
           </div>
