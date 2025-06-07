@@ -41,7 +41,7 @@ function AboutSection() {
     <section id="about" className="section bg-white">
       <div className="container mx-auto px-4">
         <SectionTitle 
-          title="About NOORZAM Logistics" 
+          title="About Noorzam Hauliers" 
           subtitle="Based in Mombasa, Kenya, we're committed to providing reliable and efficient logistics solutions."
         />
         

@@ -30,7 +30,7 @@ function ContactSection() {
                   <div>
                     <h4 className="font-semibold text-lg mb-1">Phone</h4>
                     <p className="text-neutral-700">
-                      <a href="tel:+254123456789" className="hover:text-primary-500 transition-colors">+254 123 456 789</a>
+                      <a href="tel:+254721629601" className="hover:text-primary-500 transition-colors">(+254) 07-2162-9601 / 07-2144-5597</a>
                     </p>
                   </div>
                 </div>
@@ -42,7 +42,7 @@ function ContactSection() {
                   <div>
                     <h4 className="font-semibold text-lg mb-1">Email</h4>
                     <p className="text-neutral-700">
-                      <a href="mailto:info@noorzam.com" className="hover:text-primary-500 transition-colors">info@noorzam.com</a>
+                      <a href="mailto:noorzamhouliers@gmail.com" className="hover:text-primary-500 transition-colors">noorzamhouliers@gmail.com</a>
                     </p>
                   </div>
                 </div>
@@ -54,9 +54,9 @@ function ContactSection() {
                   <div>
                     <h4 className="font-semibold text-lg mb-1">Address</h4>
                     <p className="text-neutral-700">
-                      123 Business Road<br />
-                      Mombasa, Mombasa County<br />
-                      Kenya
+                      P.O.BOX 33554-80100<br />
+                      Mombasa,<br />
+                      Kenya.
                     </p>
                   </div>
                 </div>
@@ -123,13 +123,13 @@ function ContactSection() {
                   allowFullScreen={true} 
                   loading="lazy" 
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="NOORZAM Logistics Location"
+                  title="Noorzam Hauliers Location"
                 ></iframe>
               </div>
               
               <div className="mt-6">
                 <p className="text-neutral-700">
-                  Located in the heart of Mombasa, our office is easily accessible from major highways and transportation routes.
+                  Located in the heart of Mombasa, we are easily accessible .
                 </p>
               </div>
             </div>
@@ -165,7 +165,7 @@ function ContactSection() {
                   type="email" 
                   id="email" 
                   className="input"
-                  placeholder="john@example.com"
+                  placeholder="example@example.com"
                   required
                 />
               </div>

@@ -45,6 +45,7 @@ function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.4 }}
           >
+            <a href="#quote">
             <Button 
               variant="accent" 
               size="lg"
@@ -52,6 +53,7 @@ function HeroSection() {
             >
               Get a Quote
             </Button>
+            </a>
             <a href="#about">
             <Button 
               variant="outline" 
