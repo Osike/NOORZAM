@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import SectionTitle from '../ui/SectionTitle';
@@ -45,7 +44,7 @@ function QuoteSection() {
         />
         
         <motion.div
-          className="bg-white rounded-lg shadow-xl overflow-hidden max-w-4xl mx-auto"
+          className="bg-blue rounded-lg shadow-xl overflow-hidden max-w-4xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -80,7 +79,7 @@ function QuoteSection() {
                       type="text" 
                       id="name"
                       className={`input ${errors.name ? 'border-error-500 focus:ring-error-500' : ''}`}
-                      placeholder="John Doe"
+                      placeholder="Antonio Fernades"
                       {...register('name', { required: 'Name is required' })}
                     />
                     {errors.name && <p className="mt-1 text-error-500 text-sm">{errors.name.message}</p>}
@@ -92,7 +91,7 @@ function QuoteSection() {
                       type="email" 
                       id="email"
                       className={`input ${errors.email ? 'border-error-500 focus:ring-error-500' : ''}`}
-                      placeholder="john@example.com"
+                      placeholder="example@example.com"
                       {...register('email', { 
                         required: 'Email is required',
                         pattern: {
