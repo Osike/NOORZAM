@@ -40,7 +40,7 @@ function QuoteSection() {
         <SectionTitle 
           title="Request a Quote" 
           subtitle="Fill out the form below to get a personalized quote for your logistics needs."
-          className="text-neutral-100"
+          className="text-white"
         />
         
         <motion.div
@@ -78,7 +78,7 @@ function QuoteSection() {
                     <input 
                       type="text" 
                       id="name"
-                      className={`input ${errors.name ? 'border-error-500 focus:ring-error-500' : ''}`}
+                      className={`input text-neutral-900 ${errors.name ? 'border-error-500 focus:ring-error-500' : ''}`}
                       placeholder="Antonio Fernades"
                       {...register('name', { required: 'Name is required' })}
                     />
@@ -90,7 +90,7 @@ function QuoteSection() {
                     <input 
                       type="email" 
                       id="email"
-                      className={`input ${errors.email ? 'border-error-500 focus:ring-error-500' : ''}`}
+                      className={`input text-neutral-900 ${errors.email ? 'border-error-500 focus:ring-error-500' : ''}`}
                       placeholder="example@example.com"
                       {...register('email', { 
                         required: 'Email is required',
@@ -108,7 +108,7 @@ function QuoteSection() {
                     <input 
                       type="tel" 
                       id="phone"
-                      className={`input ${errors.phone ? 'border-error-500 focus:ring-error-500' : ''}`}
+                      className={`input text-neutral-900 ${errors.phone ? 'border-error-500 focus:ring-error-500' : ''}`}
                       placeholder="+254 123 456 789"
                       {...register('phone', { required: 'Phone number is required' })}
                     />
@@ -120,7 +120,7 @@ function QuoteSection() {
                     <input 
                       type="text" 
                       id="company"
-                      className="input"
+                      className="input text-neutral-900"
                       placeholder="Your Company Ltd"
                       {...register('company')}
                     />
@@ -132,7 +132,7 @@ function QuoteSection() {
                     <input 
                       type="text" 
                       id="origin"
-                      className={`input ${errors.origin ? 'border-error-500 focus:ring-error-500' : ''}`}
+                      className={`input text-neutral-900 ${errors.origin ? 'border-error-500 focus:ring-error-500' : ''}`}
                       placeholder="City, Country"
                       {...register('origin', { required: 'Origin is required' })}
                     />
@@ -144,7 +144,7 @@ function QuoteSection() {
                     <input 
                       type="text" 
                       id="destination"
-                      className={`input ${errors.destination ? 'border-error-500 focus:ring-error-500' : ''}`}
+                      className={`input text-neutral-900 ${errors.destination ? 'border-error-500 focus:ring-error-500' : ''}`}
                       placeholder="City, Country"
                       {...register('destination', { required: 'Destination is required' })}
                     />
@@ -156,7 +156,7 @@ function QuoteSection() {
                     <input 
                       type="text" 
                       id="goodsType"
-                      className={`input ${errors.goodsType ? 'border-error-500 focus:ring-error-500' : ''}`}
+                      className={`input text-neutral-900 ${errors.goodsType ? 'border-error-500 focus:ring-error-500' : ''}`}
                       placeholder="e.g., Electronics, Furniture, etc."
                       {...register('goodsType', { required: 'Type of goods is required' })}
                     />
@@ -168,7 +168,7 @@ function QuoteSection() {
                     <input 
                       type="text" 
                       id="weight"
-                      className="input"
+                      className="input text-neutral-900"
                       placeholder="e.g., 500kg, 10 cubic meters"
                       {...register('weight')}
                     />
@@ -178,7 +178,7 @@ function QuoteSection() {
                     <label htmlFor="service" className="block text-neutral-700 font-medium mb-2">Required Service *</label>
                     <select 
                       id="service"
-                      className={`input ${errors.service ? 'border-error-500 focus:ring-error-500' : ''}`}
+                      className={`input text-neutral-900 ${errors.service ? 'border-error-500 focus:ring-error-500' : ''}`}
                       {...register('service', { required: 'Please select a service' })}
                     >
                       <option value="">Select a service</option>
@@ -196,7 +196,7 @@ function QuoteSection() {
                     <textarea 
                       id="additionalInfo"
                       rows={4}
-                      className="input resize-none"
+                      className="input text-neutral-900 resize-none"
                       placeholder="Any specific requirements or questions..."
                       {...register('additionalInfo')}
                     ></textarea>
