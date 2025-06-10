@@ -40,7 +40,7 @@ function QuoteSection() {
         <SectionTitle 
           title="Request a Quote" 
           subtitle="Fill out the form below to get a personalized quote for your logistics needs."
-          className="text-white"
+          className="text-neutral-100"
         />
         
         <motion.div
