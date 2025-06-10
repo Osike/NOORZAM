@@ -44,7 +44,7 @@ function QuoteSection() {
         />
         
         <motion.div
-          className="bg-blue rounded-lg shadow-xl overflow-hidden max-w-4xl mx-auto"
+          className="bg-neutral-100 rounded-lg shadow-xl overflow-hidden max-w-4xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
