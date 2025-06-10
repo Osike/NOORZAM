@@ -35,7 +35,7 @@ function QuoteSection() {
   };
   
   return (
-    <section id="quote" className="section bg-primary-900 text-white">
+    <section id="quote" className="section text-white">
       <div className="container mx-auto px-4">
         <SectionTitle 
           title="Request a Quote" 
