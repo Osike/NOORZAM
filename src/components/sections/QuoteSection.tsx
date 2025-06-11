@@ -55,7 +55,7 @@ function QuoteSection() {
               <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 text-success-500 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <h3 className="text-2xl font-bold text-primary-800 mb-2">Quote Request Received</h3>
+              <h3 className="text-2xl font-bold text-primary-800 mb-2 ">Quote Request Received</h3>
               <p className="text-neutral-600 mb-6">
                 Thank you for your request! Our team will review your information and get back to you with a customized quote as soon as possible.
               </p>
@@ -183,7 +183,7 @@ function QuoteSection() {
                     >
                       <option value="">Select a service</option>
                       <option value="freight">Freight Forwarding</option>
-                      <option value="warehouse">Warehousing</option>
+                      {/* <option value="warehouse">Warehousing</option> */}
                       <option value="customs">Customs Clearance</option>
                       <option value="distribution">Local Distribution</option>
                       <option value="combined">Combined Services</option>
