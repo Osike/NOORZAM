@@ -15,7 +15,7 @@ const managementTeam: TeamMember[] = [
     name: 'NOOR OMAR',
     position: 'CEO & Founder',
     image: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-    bio: 'With over 20 years in the logistics industry, John founded NOORZAM with a vision to provide reliable and efficient transportation solutions across Kenya.'
+    bio: 'With over 20 years in the logistics industry,Noor founded NOORZAM with a vision to provide reliable and efficient transportation solutions across Kenya.'
   },
   {
     name: 'AHMED NOOR',

@@ -91,6 +91,7 @@ export default {
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
+        gwen: ['Gwendolyn', 'cursive'],
       },
       container: {
         center: true,

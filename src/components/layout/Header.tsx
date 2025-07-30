@@ -63,7 +63,10 @@ function Header() {
             alt="NOORZAM Hauliers Limited Logo" 
             className="h-10 w-auto"
            />
-          <span className="text-xl font-bold text-primary-500 hidden sm:block">NOORZAM</span>
+          <span className="text-2xl font-bold font-gwen hidden sm:block">
+            <span className="text-primary-500">NOOR</span>
+            <span className="text-red-400">ZAM</span>
+          </span>
         </a>
 
         {/* Desktop Navigation */}
