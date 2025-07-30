@@ -19,8 +19,8 @@ const managementTeam: TeamMember[] = [
   },
   {
     name: 'AHMED NOOR',
-    position: 'Operations Director',
-    image: 'https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+    position: 'Operations Manager',
+    image: 'public/ahmed.png',
     bio: 'Ahmedi oversees all operational aspects of NOORZAM, ensuring smooth execution of logistics services and maintaining our high quality standards.'
   },
   {
@@ -31,9 +31,9 @@ const managementTeam: TeamMember[] = [
   },
   {
     name: 'Abdul Shakur',
-    position: 'IT & Customer Service Manager',
+    position: 'IT Manager',
     image: 'https://images.pexels.com/photos/9072338/pexels-photo-9072338.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    bio: 'Abdul leads our customer service team, focusing on building strong client relationships and ensuring exceptional service delivery.'
+    bio: 'Abdul oversees all technical operations at NOORZAM, ensuring our IT infrastructure is robust and secure.'
   }
 ];
 

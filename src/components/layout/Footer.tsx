@@ -11,7 +11,11 @@ function Footer() {
           {/* Company Info */}
           <div>
             <div className="flex items-center space-x-2 mb-6">
-              <Truck size={28} className="text-accent-500" />
+              <img 
+              src="/logo.png" 
+              alt="NOORZAM Hauliers Limited Logo" 
+              className="h-10 w-auto"
+              />
               <span className="text-xl font-bold">NOORZAM</span>
             </div>
             <p className="text-neutral-300 mb-4">
