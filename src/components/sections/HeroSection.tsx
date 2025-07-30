@@ -1,17 +1,49 @@
 import { ChevronRight, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 import Button from '../ui/Button';
 
 function HeroSection() {
+  // Array of background images
+  const backgroundImages = [
+    '/20250526_130907.png',
+    '/20250526_130909.png',
+    '/20250701_130029.png',
+    '/20250717_104048.png',
+    '/20250717_104130.png',
+    '/20250717_104304.jpg'
+  ];
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  // Change image every 4 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => 
+        (prevIndex + 1) % backgroundImages.length
+      );
+    }, 4000); // 4 seconds
+
+    return () => clearInterval(interval);
+  }, [backgroundImages.length]);
+
   return (
     <section id="home" className="relative min-h-screen flex items-center">
-      {/* Background Image */}
+      {/* Background Image Slideshow */}
       <div className="absolute inset-0 z-0">
-        <img 
-          src="https://images.pexels.com/photos/2199293/pexels-photo-2199293.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" 
-          alt="Logistics transportation" 
-          className="w-full h-full object-cover"
-        />
+        {backgroundImages.map((image, index) => (
+          <motion.img
+            key={image}
+            src={image}
+            alt="Logistics transportation"
+            className="absolute inset-0 w-full h-full object-cover"
+            initial={{ opacity: 0 }}
+            animate={{ 
+              opacity: index === currentImageIndex ? 1 : 0 
+            }}
+            transition={{ duration: 1 }}
+          />
+        ))}
         <div className="absolute inset-0 bg-gradient-to-r from-primary-900/80 to-primary-800/50"></div>
       </div>
 
@@ -92,6 +124,22 @@ function HeroSection() {
           </div>
         </div>
       </motion.div>
+
+      {/* Image Indicators */}
+      <div className="absolute bottom-20 right-8 z-10 flex flex-col space-y-2">
+        {backgroundImages.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentImageIndex(index)}
+            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+              index === currentImageIndex 
+                ? 'bg-accent-500 scale-125' 
+                : 'bg-white/50 hover:bg-white/70'
+            }`}
+            aria-label={`Go to image ${index + 1}`}
+          />
+        ))}
+      </div>
     </section>
   );
 }

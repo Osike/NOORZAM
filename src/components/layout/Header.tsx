@@ -2,14 +2,33 @@ import React, { useState, useEffect } from 'react';
 import { Truck, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const NavLink = ({ href, children }: { href: string; children: React.ReactNode }) => (
-  <a 
-    href={href} 
-    className="text-neutral-800 hover:text-primary-500 font-medium px-4 py-2 transition-colors duration-200"
-  >
-    {children}
-  </a>
-);
+const NavLink = ({ href, children }: { href: string; children: React.ReactNode }) => {
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const targetId = href.substring(1); // Remove the '#'
+    const targetElement = document.getElementById(targetId);
+    if (targetElement) {
+      const headerHeight = 80; // Approximate header height
+      const elementPosition = targetElement.offsetTop;
+      const offsetPosition = elementPosition - headerHeight;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  return (
+    <a 
+      href={href} 
+      onClick={handleClick}
+      className="text-white hover:text-accent-500 font-bold px-4 py-2 transition-colors duration-200"
+    >
+      {children}
+    </a>
+  );
+};
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -32,15 +51,19 @@ function Header() {
 
   return (
     <header 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white shadow-md py-3' : 'bg-transparent py-5'
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-black/30 backdrop-blur-md shadow-md ${
+        isScrolled ? 'py-3' : 'py-5'
       }`}
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
         {/* Logo */}
         <a href="#" className="flex items-center space-x-2">
-          <Truck size={32} className="text-primary-500" />
-          <span className="text-2xl font-bold text-primary-500">NOORZAM</span>
+          <img 
+            src="/logo.png" 
+            alt="NOORZAM Hauliers Limited Logo" 
+            className="h-10 w-auto"
+           />
+          <span className="text-xl font-bold text-primary-500 hidden sm:block">NOORZAM</span>
         </a>
 
         {/* Desktop Navigation */}
@@ -53,6 +76,20 @@ function Header() {
           <NavLink href="#contact">Contact</NavLink>
           <a 
             href="#quote" 
+            onClick={(e) => {
+              e.preventDefault();
+              const targetElement = document.getElementById('quote');
+              if (targetElement) {
+                const headerHeight = 80;
+                const elementPosition = targetElement.offsetTop;
+                const offsetPosition = elementPosition - headerHeight;
+
+                window.scrollTo({
+                  top: offsetPosition,
+                  behavior: 'smooth'
+                });
+              }
+            }}
             className="ml-2 bg-accent-500 hover:bg-accent-600 text-neutral-900 font-medium px-5 py-2 rounded-md transition-colors duration-200"
           >
             Get a Quote
@@ -61,7 +98,7 @@ function Header() {
 
         {/* Mobile Menu Button */}
         <button 
-          className="md:hidden text-neutral-800 hover:text-primary-500 focus:outline-none"
+          className="md:hidden text-white hover:text-accent-500 focus:outline-none"
           onClick={toggleMenu}
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
         >
@@ -77,19 +114,89 @@ function Header() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden bg-white"
+            className="md:hidden bg-black/30 backdrop-blur-md"
           >
             <div className="container mx-auto px-4 py-4 flex flex-col space-y-4">
-              <a href="#home" className="text-neutral-800 hover:text-primary-500 font-medium py-2" onClick={toggleMenu}>Home</a>
-              <a href="#services" className="text-neutral-800 hover:text-primary-500 font-medium py-2" onClick={toggleMenu}>Services</a>
-              <a href="#fleet" className="text-neutral-800 hover:text-primary-500 font-medium py-2" onClick={toggleMenu}>Fleet</a>
-              <a href="#about" className="text-neutral-800 hover:text-primary-500 font-medium py-2" onClick={toggleMenu}>About Us</a>
-              <a href="#team" className="text-neutral-800 hover:text-primary-500 font-medium py-2" onClick={toggleMenu}>Team</a>
-              <a href="#contact" className="text-neutral-800 hover:text-primary-500 font-medium py-2" onClick={toggleMenu}>Contact</a>
+              <a href="#home" className="text-white hover:text-accent-500 font-bold py-2" onClick={(e) => {
+                e.preventDefault();
+                const targetElement = document.getElementById('home');
+                if (targetElement) {
+                  const headerHeight = 80;
+                  const elementPosition = targetElement.offsetTop;
+                  const offsetPosition = elementPosition - headerHeight;
+                  window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                }
+                toggleMenu();
+              }}>Home</a>
+              <a href="#services" className="text-white hover:text-accent-500 font-bold py-2" onClick={(e) => {
+                e.preventDefault();
+                const targetElement = document.getElementById('services');
+                if (targetElement) {
+                  const headerHeight = 80;
+                  const elementPosition = targetElement.offsetTop;
+                  const offsetPosition = elementPosition - headerHeight;
+                  window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                }
+                toggleMenu();
+              }}>Services</a>
+              <a href="#fleet" className="text-white hover:text-accent-500 font-bold py-2" onClick={(e) => {
+                e.preventDefault();
+                const targetElement = document.getElementById('fleet');
+                if (targetElement) {
+                  const headerHeight = 80;
+                  const elementPosition = targetElement.offsetTop;
+                  const offsetPosition = elementPosition - headerHeight;
+                  window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                }
+                toggleMenu();
+              }}>Fleet</a>
+              <a href="#about" className="text-white hover:text-accent-500 font-bold py-2" onClick={(e) => {
+                e.preventDefault();
+                const targetElement = document.getElementById('about');
+                if (targetElement) {
+                  const headerHeight = 80;
+                  const elementPosition = targetElement.offsetTop;
+                  const offsetPosition = elementPosition - headerHeight;
+                  window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                }
+                toggleMenu();
+              }}>About Us</a>
+              <a href="#team" className="text-white hover:text-accent-500 font-bold py-2" onClick={(e) => {
+                e.preventDefault();
+                const targetElement = document.getElementById('team');
+                if (targetElement) {
+                  const headerHeight = 80;
+                  const elementPosition = targetElement.offsetTop;
+                  const offsetPosition = elementPosition - headerHeight;
+                  window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                }
+                toggleMenu();
+              }}>Team</a>
+              <a href="#contact" className="text-white hover:text-accent-500 font-bold py-2" onClick={(e) => {
+                e.preventDefault();
+                const targetElement = document.getElementById('contact');
+                if (targetElement) {
+                  const headerHeight = 80;
+                  const elementPosition = targetElement.offsetTop;
+                  const offsetPosition = elementPosition - headerHeight;
+                  window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                }
+                toggleMenu();
+              }}>Contact</a>
               <a 
                 href="#quote" 
-                className="bg-accent-500 hover:bg-accent-600 text-neutral-900 font-medium px-5 py-2 rounded-md text-center transition-colors duration-200"
-                onClick={toggleMenu}
+                className="bg-accent-500 hover:bg-accent-600 text-neutral-900 font-bold px-5 py-3 rounded-md text-center transition-colors duration-200"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const targetElement = document.getElementById('quote');
+                  if (targetElement) {
+                    const headerHeight = 80;
+                    const elementPosition = targetElement.offsetTop;
+                    const offsetPosition = elementPosition - headerHeight;
+                    window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                  }
+                  toggleMenu();
+                }}
               >
                 Get a Quote
               </a>
