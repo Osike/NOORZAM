@@ -1,37 +1,68 @@
 import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
+import { useState } from 'react';
 import SectionTitle from '../ui/SectionTitle';
+import { sendQuoteRequest, sendQuoteViaMailto, type QuoteFormData } from '../../services/emailService';
 
-type FormData = {
-  name: string;
-  email: string;
-  phone: string;
-  company: string;
-  origin: string;
-  destination: string;
-  goodsType: string;
-  weight: string;
-  service: string;
-  additionalInfo: string;
-};
+type FormData = QuoteFormData;
 
 function QuoteSection() {
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: 'success' | 'error' | null;
+    message: string;
+  }>({ type: null, message: '' });
+
   const { 
     register, 
     handleSubmit, 
     reset,
-    formState: { errors, isSubmitting, isSubmitSuccessful } 
+    formState: { errors, isSubmitting } 
   } = useForm<FormData>();
   
   const onSubmit = async (data: FormData) => {
-    // In a real implementation, this would send data to the backend
-    console.log('Form data:', data);
-    
-    // Simulate API call with a delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    // Reset the form after successful submission
-    reset();
+    try {
+      setSubmitStatus({ type: null, message: '' });
+      
+      // Try to send via EmailJS first
+      const result = await sendQuoteRequest(data);
+      
+      if (result.success) {
+        setSubmitStatus({
+          type: 'success',
+          message: result.message
+        });
+        // Reset the form after successful submission
+        reset();
+      } else {
+        // If EmailJS fails, offer mailto fallback
+        setSubmitStatus({
+          type: 'error',
+          message: `${result.message} Would you like to send via your email client instead?`
+        });
+      }
+    } catch (error) {
+      console.error('Submission error:', error);
+      setSubmitStatus({
+        type: 'error',
+        message: 'An unexpected error occurred. Please try again or contact us directly.'
+      });
+    }
+  };
+
+  const handleMailtoFallback = () => {
+    // Get current form values and send via mailto
+    sendQuoteViaMailto({
+      name: (document.getElementById('name') as HTMLInputElement)?.value || '',
+      email: (document.getElementById('email') as HTMLInputElement)?.value || '',
+      phone: (document.getElementById('phone') as HTMLInputElement)?.value || '',
+      company: (document.getElementById('company') as HTMLInputElement)?.value || '',
+      origin: (document.getElementById('origin') as HTMLInputElement)?.value || '',
+      destination: (document.getElementById('destination') as HTMLInputElement)?.value || '',
+      goodsType: (document.getElementById('goodsType') as HTMLInputElement)?.value || '',
+      weight: (document.getElementById('weight') as HTMLInputElement)?.value || '',
+      service: (document.getElementById('service') as HTMLSelectElement)?.value || '',
+      additionalInfo: (document.getElementById('additionalInfo') as HTMLTextAreaElement)?.value || '',
+    });
   };
   
   return (
@@ -50,17 +81,20 @@ function QuoteSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          {isSubmitSuccessful ? (
+          {submitStatus.type === 'success' ? (
             <div className="p-8 text-center">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 text-success-500 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 text-green-500 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <h3 className="text-2xl font-bold text-primary-800 mb-2 ">Quote Request Received</h3>
+              <h3 className="text-2xl font-bold text-primary-800 mb-2">Quote Request Sent Successfully!</h3>
               <p className="text-neutral-600 mb-6">
-                Thank you for your request! Our team will review your information and get back to you with a customized quote as soon as possible.
+                {submitStatus.message}
               </p>
               <button
-                onClick={() => reset({}, { keepValues: false })}
+                onClick={() => {
+                  setSubmitStatus({ type: null, message: '' });
+                  reset({}, { keepValues: false });
+                }}
                 className="bg-primary-500 hover:bg-primary-600 text-white font-medium px-6 py-3 rounded-md transition-colors duration-200"
               >
                 Submit Another Request
@@ -71,6 +105,29 @@ function QuoteSection() {
               <h3 className="text-2xl font-bold text-primary-800 mb-6">Your Quote Details</h3>
               
               <form onSubmit={handleSubmit(onSubmit)}>
+                {/* Error/Status Messages */}
+                {submitStatus.type === 'error' && (
+                  <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-md">
+                    <div className="flex items-start">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-red-400 mt-0.5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <div className="flex-1">
+                        <p className="text-red-700 text-sm mb-2">{submitStatus.message}</p>
+                        {submitStatus.message.includes('email client') && (
+                          <button
+                            type="button"
+                            onClick={handleMailtoFallback}
+                            className="text-red-600 hover:text-red-800 underline text-sm font-medium"
+                          >
+                            Open Email Client
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                   {/* Contact Information */}
                   <div>
