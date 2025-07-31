@@ -16,8 +16,9 @@ This guide will help you set up email functionality for the quote request form u
 4. Follow the setup instructions for your provider
 5. Note down your **Service ID**
 
-## Step 3: Create Email Template
+## Step 3: Create Email Templates
 
+### Template 1: Quote Request Template
 1. Go to "Email Templates" in your dashboard
 2. Click "Create New Template"
 3. Use this template content:
@@ -55,6 +56,35 @@ You can reply directly to this email to contact the customer.
 4. Set the "To Email" field to your business email
 5. Note down your **Template ID**
 
+### Template 2: Contact Form Template (Optional)
+1. Create another template for contact messages:
+
+```
+Subject: New Contact Message: {{subject}}
+
+Hello,
+
+You have received a new message from your website:
+
+CONTACT INFORMATION:
+- Name: {{from_name}}
+- Email: {{from_email}}
+- Phone: {{phone}}
+
+SUBJECT: {{subject}}
+
+MESSAGE:
+{{message}}
+
+Sent on: {{sent_date}}
+
+---
+This email was sent from your website's contact form.
+You can reply directly to this email to contact the sender.
+```
+
+2. Note down this **Contact Template ID** (or use the same template for both forms)
+
 ## Step 4: Get Public Key
 
 1. Go to "Account" in your EmailJS dashboard
@@ -66,10 +96,13 @@ Update your `.env` file with the following values:
 
 ```env
 VITE_EMAILJS_SERVICE_ID=your_service_id_here
-VITE_EMAILJS_TEMPLATE_ID=your_template_id_here
+VITE_EMAILJS_TEMPLATE_ID=your_quote_template_id_here
+VITE_EMAILJS_CONTACT_TEMPLATE_ID=your_contact_template_id_here
 VITE_EMAILJS_PUBLIC_KEY=your_public_key_here
 VITE_COMPANY_EMAIL=your-business-email@domain.com
 ```
+
+**Note:** If you want to use the same template for both quote and contact forms, you can set `VITE_EMAILJS_CONTACT_TEMPLATE_ID` to the same value as `VITE_EMAILJS_TEMPLATE_ID`.
 
 ## Step 6: Test the Setup
 

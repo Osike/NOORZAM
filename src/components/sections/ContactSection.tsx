@@ -1,8 +1,63 @@
 import { motion } from 'framer-motion';
+import { useForm } from 'react-hook-form';
+import { useState } from 'react';
 import { Phone, Mail, MapPin, Clock } from 'lucide-react';
 import SectionTitle from '../ui/SectionTitle';
+import { sendContactMessage, sendContactViaMailto, type ContactFormData } from '../../services/emailService';
 
 function ContactSection() {
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: 'success' | 'error' | null;
+    message: string;
+  }>({ type: null, message: '' });
+
+  const { 
+    register, 
+    handleSubmit, 
+    reset,
+    formState: { errors, isSubmitting } 
+  } = useForm<ContactFormData>();
+  
+  const onSubmit = async (data: ContactFormData) => {
+    try {
+      setSubmitStatus({ type: null, message: '' });
+      
+      // Try to send via EmailJS first
+      const result = await sendContactMessage(data);
+      
+      if (result.success) {
+        setSubmitStatus({
+          type: 'success',
+          message: result.message
+        });
+        // Reset the form after successful submission
+        reset();
+      } else {
+        // If EmailJS fails, offer mailto fallback
+        setSubmitStatus({
+          type: 'error',
+          message: `${result.message} Would you like to send via your email client instead?`
+        });
+      }
+    } catch (error) {
+      console.error('Submission error:', error);
+      setSubmitStatus({
+        type: 'error',
+        message: 'An unexpected error occurred. Please try again or contact us directly.'
+      });
+    }
+  };
+
+  const handleMailtoFallback = () => {
+    // Get current form values and send via mailto
+    sendContactViaMailto({
+      name: (document.getElementById('contactName') as HTMLInputElement)?.value || '',
+      email: (document.getElementById('contactEmail') as HTMLInputElement)?.value || '',
+      phone: (document.getElementById('contactPhone') as HTMLInputElement)?.value || '',
+      subject: (document.getElementById('contactSubject') as HTMLInputElement)?.value || '',
+      message: (document.getElementById('contactMessage') as HTMLTextAreaElement)?.value || '',
+    });
+  };
   return (
     <section id="contact" className="section bg-neutral-50">
       <div className="container mx-auto px-4">
@@ -144,74 +199,132 @@ function ContactSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <h3 className="text-2xl font-bold text-primary-800 mb-6">Send Us a Message</h3>
-          
-          <form>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-              <div>
-                <label htmlFor="name" className="block text-neutral-700 font-medium mb-2">Your Name</label>
-                <input 
-                  type="text" 
-                  id="name" 
-                  className="input"
-                  placeholder="John Doe"
-                  required
-                />
-              </div>
-              
-              <div>
-                <label htmlFor="email" className="block text-neutral-700 font-medium mb-2">Email Address</label>
-                <input 
-                  type="email" 
-                  id="email" 
-                  className="input"
-                  placeholder="example@example.com"
-                  required
-                />
-              </div>
-              
-              <div>
-                <label htmlFor="phone" className="block text-neutral-700 font-medium mb-2">Phone Number</label>
-                <input 
-                  type="tel" 
-                  id="phone" 
-                  className="input"
-                  placeholder="+254 123 456 789"
-                />
-              </div>
-              
-              <div>
-                <label htmlFor="subject" className="block text-neutral-700 font-medium mb-2">Subject</label>
-                <input 
-                  type="text" 
-                  id="subject" 
-                  className="input"
-                  placeholder="How can we help you?"
-                  required
-                />
-              </div>
-            </div>
-            
-            <div className="mb-6">
-              <label htmlFor="message" className="block text-neutral-700 font-medium mb-2">Message</label>
-              <textarea 
-                id="message" 
-                rows={6} 
-                className="input resize-none"
-                placeholder="Write your message here..."
-                required
-              ></textarea>
-            </div>
-            
-            <div className="flex justify-end">
-              <button 
-                type="submit" 
-                className="bg-primary-500 hover:bg-primary-600 text-white font-medium px-8 py-3 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+          {submitStatus.type === 'success' ? (
+            <div className="text-center">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 text-green-500 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <h3 className="text-2xl font-bold text-primary-800 mb-2">Message Sent Successfully!</h3>
+              <p className="text-neutral-600 mb-6">
+                {submitStatus.message}
+              </p>
+              <button
+                onClick={() => {
+                  setSubmitStatus({ type: null, message: '' });
+                  reset({}, { keepValues: false });
+                }}
+                className="bg-primary-500 hover:bg-primary-600 text-white font-medium px-6 py-3 rounded-md transition-colors duration-200"
               >
-                Send Message
+                Send Another Message
               </button>
             </div>
-          </form>
+          ) : (
+            <>
+              <h3 className="text-2xl font-bold text-primary-800 mb-6">Send Us a Message</h3>
+              
+              <form onSubmit={handleSubmit(onSubmit)}>
+                {/* Error/Status Messages */}
+                {submitStatus.type === 'error' && (
+                  <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-md">
+                    <div className="flex items-start">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-red-400 mt-0.5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <div className="flex-1">
+                        <p className="text-red-700 text-sm mb-2">{submitStatus.message}</p>
+                        {submitStatus.message.includes('email client') && (
+                          <button
+                            type="button"
+                            onClick={handleMailtoFallback}
+                            className="text-red-600 hover:text-red-800 underline text-sm font-medium"
+                          >
+                            Open Email Client
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                  <div>
+                    <label htmlFor="contactName" className="block text-neutral-700 font-medium mb-2">Your Name *</label>
+                    <input 
+                      type="text" 
+                      id="contactName" 
+                      className={`input ${errors.name ? 'border-red-500 focus:ring-red-500' : ''}`}
+                      placeholder="Your Name"
+                      {...register('name', { required: 'Name is required' })}
+                    />
+                    {errors.name && <p className="mt-1 text-red-500 text-sm">{errors.name.message}</p>}
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="contactEmail" className="block text-neutral-700 font-medium mb-2">Email Address *</label>
+                    <input 
+                      type="email" 
+                      id="contactEmail" 
+                      className={`input ${errors.email ? 'border-red-500 focus:ring-red-500' : ''}`}
+                      placeholder="example@example.com"
+                      {...register('email', { 
+                        required: 'Email is required',
+                        pattern: {
+                          value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                          message: 'Invalid email address'
+                        }
+                      })}
+                    />
+                    {errors.email && <p className="mt-1 text-red-500 text-sm">{errors.email.message}</p>}
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="contactPhone" className="block text-neutral-700 font-medium mb-2">Phone Number</label>
+                    <input 
+                      type="tel" 
+                      id="contactPhone" 
+                      className="input"
+                      placeholder="+254 123 456 789"
+                      {...register('phone')}
+                    />
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="contactSubject" className="block text-neutral-700 font-medium mb-2">Subject *</label>
+                    <input 
+                      type="text" 
+                      id="contactSubject" 
+                      className={`input ${errors.subject ? 'border-red-500 focus:ring-red-500' : ''}`}
+                      placeholder="How can we help you?"
+                      {...register('subject', { required: 'Subject is required' })}
+                    />
+                    {errors.subject && <p className="mt-1 text-red-500 text-sm">{errors.subject.message}</p>}
+                  </div>
+                </div>
+                
+                <div className="mb-6">
+                  <label htmlFor="contactMessage" className="block text-neutral-700 font-medium mb-2">Message *</label>
+                  <textarea 
+                    id="contactMessage" 
+                    rows={6} 
+                    className={`input resize-none ${errors.message ? 'border-red-500 focus:ring-red-500' : ''}`}
+                    placeholder="Write your message here..."
+                    {...register('message', { required: 'Message is required' })}
+                  ></textarea>
+                  {errors.message && <p className="mt-1 text-red-500 text-sm">{errors.message.message}</p>}
+                </div>
+                
+                <div className="flex justify-end">
+                  <button 
+                    type="submit" 
+                    className="bg-primary-500 hover:bg-primary-600 text-white font-medium px-8 py-3 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:opacity-70"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? 'Sending...' : 'Send Message'}
+                  </button>
+                </div>
+              </form>
+            </>
+          )}
         </motion.div>
       </div>
     </section>
