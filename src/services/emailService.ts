@@ -148,7 +148,7 @@ ${formData.message}
 Sent on: ${new Date().toLocaleString()}
 `.trim();
 
-  const mailtoLink = `mailto:${import.meta.env.VITE_COMPANY_EMAIL || 'info@noorzam.co.ke'}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  const mailtoLink = `mailto:${import.meta.env.VITE_COMPANY_EMAIL || 'hpbrains2025@gmail.com'}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   window.open(mailtoLink);
 };
 
@@ -178,6 +178,6 @@ ${formData.additionalInfo || 'None'}
 Sent on: ${new Date().toLocaleString()}
 `.trim();
 
-  const mailtoLink = `mailto:${import.meta.env.VITE_COMPANY_EMAIL || 'info@noorzam.co.ke'}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  const mailtoLink = `mailto:${import.meta.env.VITE_COMPANY_EMAIL || 'hpbrains2025@gmail.com'}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   window.open(mailtoLink);
 };
